@@ -1,101 +1,114 @@
-package com.mycompany.loginapp1;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package com.mycompany.loginapp1;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
 public class RegistrationTest1 {
 
-    private final Registration1 validReg = new Registration1(
-            "kyl_1", "Ch&&sec@ke99!", "+27838968976", "Kyle", "Smith");
-
     @Test
-    public void testRegisterUser_UsernameCorrect_ReturnsWelcomeMessage() {
+    public void testRegisterUser_correctUsername_returnsSuccessMessage() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyl_1", "Ch&&sec@ke99!", "+27838968976");
         assertEquals(
-            "Welcome Kyle ,Smith it is great to see you.",
-            validReg.registerUser()
-        );
+                "Username successfully captured.\n"
+              + "Password successfully captured.",
+                reg.registerUser());
     }
 
     @Test
-    public void testRegisterUser_UsernameIncorrect_ReturnsUsernameError() {
-        Registration1 reg = new Registration1(
-                "kyle!!!!!!!", "Ch&&sec@ke99!", "+27838968976", "Kyle", "Smith");
+    public void testRegisterUser_incorrectUsername_returnsError() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyle!!!!!!!", "Ch&&sec@ke99!", "+27838968976");
         assertEquals(
-            "Username is not correctly formatted; please ensure that your username " +
-            "contains an underscore and is no more than five characters in length.",
-            reg.registerUser()
-        );
+                "Username is not correctly formatted; please ensure"
+              + " that your username contains an underscore and is"
+              + " no more than 5 characters long.",
+                reg.registerUser());
     }
 
     @Test
-    public void testRegisterUser_PasswordCorrect_ReturnsWelcomeMessage() {
+    public void testRegisterUser_correctPassword_returnsSuccessMessage() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyl_1", "Ch&&sec@ke99!", "+27838968976");
         assertEquals(
-            "Welcome Kyle ,Smith it is great to see you.",
-            validReg.registerUser()
-        );
+                "Username successfully captured.\n"
+              + "Password successfully captured.",
+                reg.registerUser());
     }
 
     @Test
-    public void testRegisterUser_PasswordIncorrect_ReturnsPasswordError() {
-        Registration1 reg = new Registration1(
-                "kyl_1", "password", "+27838968976", "Kyle", "Smith");
+    public void testRegisterUser_incorrectPassword_returnsError() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyl_1", "password", "+27838968976");
         assertEquals(
-            "Password is not correctly formatted; please ensure that the password " +
-            "contains at least eight characters, a capital letter, a number, and a special character.",
-            reg.registerUser()
-        );
+                "Password is not correctly formatted; please ensure"
+              + " that the password contains at least 8 characters,"
+              + " a capital letter, a number and a special character.",
+                reg.registerUser());
+    }
+
+   
+    @Test
+    public void testCheckUserName_correct_returnsTrue() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyl_1", "Ch&&sec@ke99!", "+27838968976");
+        assertTrue(reg.checkUserName());
     }
 
     @Test
-    public void testCheckCellPhoneNumber_Correct_ReturnsTrue() {
-        assertTrue(validReg.checkCellPhoneNumber());
-    }
-
-    @Test
-    public void testCheckCellPhoneNumber_Incorrect_ReturnsFalse() {
-        Registration1 reg = new Registration1(
-                "kyl_1", "Ch&&sec@ke99!", "08966553", "Kyle", "Smith");
-        assertFalse(reg.checkCellPhoneNumber());
-    }
-
-    @Test
-    public void testLoginUser_Successful_ReturnsTrue() {
-        Login1 login = new Login1("kyl_1", "Ch&&sec@ke99!", validReg);
-        assertTrue(login.loginUser());
-    }
-
-    @Test
-    public void testLoginUser_Failed_ReturnsFalse() {
-        Login1 login = new Login1("kyl_1", "WrongPassword1!", validReg);
-        assertFalse(login.loginUser());
-    }
-
-    @Test
-    public void testCheckUserName_CorrectlyFormatted_ReturnsTrue() {
-        assertTrue(validReg.checkUserName());
-    }
-
-    @Test
-    public void testCheckUserName_IncorrectlyFormatted_ReturnsFalse() {
-        Registration1 reg = new Registration1(
-                "kyle!!!!!!!", "Ch&&sec@ke99!", "+27838968976", "Kyle", "Smith");
+    public void testCheckUserName_incorrect_returnsFalse() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyle!!!!!!!", "Ch&&sec@ke99!", "+27838968976");
         assertFalse(reg.checkUserName());
     }
 
     @Test
-    public void testCheckPasswordComplexity_MeetsComplexity_ReturnsTrue() {
-        assertTrue(validReg.checkPasswordComplexity());
+    public void testCheckPasswordComplexity_correct_returnsTrue() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyl_1", "Ch&&sec@ke99!", "+27838968976");
+        assertTrue(reg.checkPasswordComplexity());
     }
 
     @Test
-    public void testCheckPasswordComplexity_DoesNotMeetComplexity_ReturnsFalse() {
-        Registration1 reg = new Registration1(
-                "kyl_1", "password", "+27838968976", "Kyle", "Smith");
+    public void testCheckPasswordComplexity_incorrect_returnsFalse() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyl_1", "password", "+27838968976");
         assertFalse(reg.checkPasswordComplexity());
+    }
+
+    @Test
+    public void testCheckCellPhoneNumber_correct_returnsTrue() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyl_1", "Ch&&sec@ke99!", "+27838968976");
+        assertTrue(reg.checkCellPhoneNumber());
+    }
+
+    @Test
+    public void testCheckCellPhoneNumber_incorrect_returnsFalse() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyl_1", "Ch&&sec@ke99!", "08966553");
+        assertFalse(reg.checkCellPhoneNumber());
+    }
+
+  
+    @Test
+    public void testLoginUser_correctCredentials_returnsTrue() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyl_1", "Ch&&sec@ke99!", "+27838968976");
+        Login1 login = new Login1("kyl_1", "Ch&&sec@ke99!", reg);
+        assertTrue(login.loginUser());
+    }
+
+    @Test
+    public void testLoginUser_incorrectCredentials_returnsFalse() {
+        Registration1 reg = new Registration1("Kyle", "Smith",
+                "kyl_1", "Ch&&sec@ke99!", "+27838968976");
+        Login1 login = new Login1("wrong", "wrong", reg);
+        assertFalse(login.loginUser());
     }
 }
